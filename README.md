@@ -75,9 +75,9 @@ The server is listening on port 8080.
 ![Captura de pantalla 2024-01-16 032820](https://github.com/samuelzyx/spotify-api/assets/12131059/626efb85-5d24-4573-9e0d-1d032e8825de)
 
 4. Install Workbench to login to MySql Database Viewer
-Artist table
+4.1 Artist table
 ![Captura de pantalla 2024-01-16 032747](https://github.com/samuelzyx/spotify-api/assets/12131059/28b15de9-7db4-4cde-a07b-87a872e0f823)
-Tracks table
+4.2 Tracks table
 ![Captura de pantalla 2024-01-16 032757](https://github.com/samuelzyx/spotify-api/assets/12131059/476fc590-ad41-49f8-a8b9-531d25547380)
 
 
