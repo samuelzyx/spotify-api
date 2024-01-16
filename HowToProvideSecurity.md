@@ -63,7 +63,7 @@ func authMiddleware() gin.HandlerFunc {
 
 ### Step 5: Apply Middleware to Protected Routes
 
-Use the created middleware on the route groups you want to protect:
+Use the created middleware on the route groups we want to protect:
 
 ```go
 func main() {
@@ -86,4 +86,4 @@ func main() {
 }
 ```
 
-By following these steps, you'll secure specific routes in your Gin project using JWT authentication.
+By following these steps, we'll secure specific routes in our Gin project using JWT authentication.
