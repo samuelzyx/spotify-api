@@ -7,8 +7,8 @@ import (
 var OAuthConfig *oauth2.Config
 
 var (
-	clientID     = "6c84853b04074e9f8c8d2739c25a337a"
-	clientSecret = "b6480532d600467797a17b0c16c16098"
+	clientID     = "your_clientID"
+	clientSecret = "your_clientSecret"
 	redirectURI  = "http://localhost:8080/callback"
 	scopes       = []string{"user-read-email", "user-read-private"}
 )
