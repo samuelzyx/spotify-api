@@ -1,6 +1,6 @@
 # Spotify API
 
-This project, developed by Ing Samuel Seda, is a code challenge from Brillio. It focuses on consuming the Spotify API, implementing OAuth 2.0 login, and performing searches by ISRC and artist, storing the results in a local MySQL database or interacting with the Spotify API.
+This project, developed by Ing Samuel Seda, is a code challenge from Brillio. It focuses on consuming the Spotify API, implementing OAuth 2.0 login, and performing searches of Tracks Music by ISRC and artist, storing the results in a local MySQL database or interacting with the Spotify API.
 
 ## Getting Started
 
