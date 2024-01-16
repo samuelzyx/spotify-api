@@ -1,7 +1,9 @@
+// models/track.go
 package models
 
 import "gorm.io/gorm"
 
+// Track represents a music track
 type Track struct {
 	gorm.Model
 	ISRC       string

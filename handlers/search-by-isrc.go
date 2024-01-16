@@ -1,3 +1,4 @@
+// Package handlers provides HTTP request handlers.
 package handlers
 
 import (
@@ -10,6 +11,20 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @Summary Search tracks by ISRC
+// @Description Get track information by ISRC
+// @ID search-by-isrc
+// @Produce json
+// @Param isrc path string true "ISRC code of the track"
+// @Success 200 {object} models.Track
+// @Failure 404 {object} models.ErrorResponse
+// @Failure 500 {object} models.ErrorResponse
+// @Failure 500 {object} models.ErrorResponse
+// @Failure 500 {object} models.ErrorResponse
+// @Failure 500 {object} models.ErrorResponse
+// @Failure 500 {object} models.ErrorResponse
+// @Failure 500 {object} models.ErrorResponse
+// @Router /search/isrc/{isrc} [get]
 func HandleSearchByISRC(c *gin.Context) {
 	isrc := c.Param("isrc")
 
@@ -17,14 +32,7 @@ func HandleSearchByISRC(c *gin.Context) {
 	var existingTrack models.Track
 	if err := db.DB.Preload("Artist").Where("isrc = ?", isrc).First(&existingTrack).Error; err == nil {
 		// The song already exists in the database, respond with the stored information
-		c.JSON(http.StatusOK, gin.H{
-			"Message":    "Track found in the database",
-			"ISRC":       existingTrack.ISRC,
-			"ImageURI":   existingTrack.ImageURI,
-			"Title":      existingTrack.Title,
-			"Artist":     existingTrack.Artist,
-			"Popularity": existingTrack.Popularity,
-		})
+		c.JSON(http.StatusOK, existingTrack)
 		return
 	}
 
@@ -34,7 +42,7 @@ func HandleSearchByISRC(c *gin.Context) {
 	// Perform the request and get the response
 	resp, err := authenticatedClient.Get(searchURL)
 	if err != nil {
-		c.String(http.StatusInternalServerError, "Error making request to Spotify API")
+		c.JSON(http.StatusInternalServerError, models.ErrorResponse{Code: http.StatusInternalServerError, Message: "Error making request to Spotify API"})
 		return
 	}
 	defer resp.Body.Close()
@@ -50,14 +58,14 @@ func HandleSearchByISRC(c *gin.Context) {
 	// Extract the list of tracks from the JSON response
 	tracks, ok := result["tracks"].(map[string]interface{})
 	if !ok {
-		c.String(http.StatusInternalServerError, "Error getting the list of tracks from JSON response")
+		c.JSON(http.StatusInternalServerError, models.ErrorResponse{Code: http.StatusInternalServerError, Message: "Error getting the list of tracks from JSON response"})
 		return
 	}
 
 	// Extract the items from the list of tracks
 	items, ok := tracks["items"].([]interface{})
 	if !ok {
-		c.String(http.StatusInternalServerError, "Error getting items from JSON response")
+		c.JSON(http.StatusInternalServerError, models.ErrorResponse{Code: http.StatusInternalServerError, Message: "Error getting tracks from JSON response"})
 		return
 	}
 
@@ -71,7 +79,7 @@ func HandleSearchByISRC(c *gin.Context) {
 	for _, item := range items {
 		track, ok := item.(map[string]interface{})
 		if !ok {
-			c.String(http.StatusInternalServerError, "Error getting track information from JSON response")
+			c.JSON(http.StatusInternalServerError, models.ErrorResponse{Code: http.StatusInternalServerError, Message: "Error getting track information from JSON response"})
 			return
 		}
 
@@ -111,7 +119,7 @@ func HandleSearchByISRC(c *gin.Context) {
 
 	// Store the information in the database using GORM
 	if topTitle == "" {
-		c.String(http.StatusInternalServerError, "Not track found, nothing stored")
+		c.JSON(http.StatusNotFound, models.ErrorResponse{Code: http.StatusInternalServerError, Message: "Not track found, nothing stored"})
 		return
 	}
 
@@ -135,12 +143,5 @@ func HandleSearchByISRC(c *gin.Context) {
 	db.DB.Create(&newTrack)
 
 	// Respond with the stored information
-	c.JSON(http.StatusOK, gin.H{
-		"Message":    "New track added to the database",
-		"ISRC":       newTrack.ISRC,
-		"ImageURI":   newTrack.ImageURI,
-		"Title":      newTrack.Title,
-		"Artist":     newTrack.Artist,
-		"Popularity": newTrack.Popularity,
-	})
+	c.JSON(http.StatusOK, existingTrack)
 }

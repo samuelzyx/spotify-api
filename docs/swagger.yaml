@@ -1,0 +1,112 @@
+definitions:
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  models.Artist:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      name:
+        type: string
+      tracks:
+        description: One-to-many relationship with Track
+        items:
+          $ref: '#/definitions/models.Track'
+        type: array
+      updatedAt:
+        type: string
+    type: object
+  models.ErrorResponse:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
+  models.Track:
+    properties:
+      artist:
+        allOf:
+        - $ref: '#/definitions/models.Artist'
+        description: Relationship with Artist (parent)
+      artistID:
+        description: Foreign key referencing Artist's ID
+        type: integer
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      imageURI:
+        type: string
+      isrc:
+        type: string
+      popularity:
+        type: integer
+      title:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /search/{name}:
+    get:
+      description: Get tracks by artist name
+      operationId: search-by-artist
+      parameters:
+      - description: Artist name
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Artist'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Search tracks by artist
+  /search/isrc/{isrc}:
+    get:
+      description: Get track information by ISRC
+      operationId: search-by-isrc
+      parameters:
+      - description: ISRC code of the track
+        in: path
+        name: isrc
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Track'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Search tracks by ISRC
+swagger: "2.0"
