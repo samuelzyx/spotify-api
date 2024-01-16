@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-
 	"spotify-api/db"
 	"spotify-api/models"
 
@@ -16,14 +15,14 @@ func HandleSearchByISRC(c *gin.Context) {
 
 	// Check if the song is already stored in the database
 	var existingTrack models.Track
-	if err := db.DB.Where("isrc = ?", isrc).First(&existingTrack).Error; err == nil {
+	if err := db.DB.Preload("Artist").Where("isrc = ?", isrc).First(&existingTrack).Error; err == nil {
 		// The song already exists in the database, respond with the stored information
 		c.JSON(http.StatusOK, gin.H{
 			"Message":    "Track found in the database",
 			"ISRC":       existingTrack.ISRC,
 			"ImageURI":   existingTrack.ImageURI,
 			"Title":      existingTrack.Title,
-			"ArtistName": existingTrack.ArtistName,
+			"Artist":     existingTrack.Artist,
 			"Popularity": existingTrack.Popularity,
 		})
 		return
@@ -116,9 +115,8 @@ func HandleSearchByISRC(c *gin.Context) {
 		return
 	}
 
-	// Check if the artist is already stored in the database
 	var existingArtist models.Artist
-	if err := db.DB.Where("name = ?", topArtistName).First(&existingArtist).Error; err != nil {
+	if err := db.DB.Preload("Tracks").Where("name = ?", topArtistName).First(&existingArtist).Error; err != nil {
 		// The artist is not stored, store it
 		newArtist := models.Artist{
 			Name: topArtistName,
@@ -131,7 +129,7 @@ func HandleSearchByISRC(c *gin.Context) {
 		ISRC:       isrc,
 		ImageURI:   topImageURI,
 		Title:      topTitle,
-		ArtistName: existingArtist.Name,
+		Artist:     existingArtist, // Assign the artist to the track
 		Popularity: topPopularity,
 	}
 	db.DB.Create(&newTrack)
@@ -142,7 +140,7 @@ func HandleSearchByISRC(c *gin.Context) {
 		"ISRC":       newTrack.ISRC,
 		"ImageURI":   newTrack.ImageURI,
 		"Title":      newTrack.Title,
-		"ArtistName": newTrack.ArtistName,
+		"Artist":     newTrack.Artist,
 		"Popularity": newTrack.Popularity,
 	})
 }

@@ -19,5 +19,9 @@ func HandleSearchByArtist(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, artist)
+	// Now artist.Tracks contains the associated tracks
+	c.JSON(http.StatusOK, gin.H{
+		"artist": artist,
+		"tracks": artist.Tracks,
+	})
 }

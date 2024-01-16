@@ -7,6 +7,7 @@ type Track struct {
 	ISRC       string
 	ImageURI   string
 	Title      string
-	ArtistName string
 	Popularity int
+	ArtistID   uint   // Foreign key referencing Artist's ID
+	Artist     Artist // Relationship with Artist (parent)
 }
