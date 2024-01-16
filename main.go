@@ -5,24 +5,22 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"spotify-api/controllers"
 	"spotify-api/db"
+	"spotify-api/handlers"
 )
 
 func main() {
-	//Connection DB
 	db.ConnectionDB()
 
-	//Router Gin
-	r := gin.Default()
+	router := gin.Default()
 
-	r.LoadHTMLGlob("templates/*")
-	r.GET("/", controllers.HandleWelcome)
-	r.GET("/login", controllers.HandleLogin)
-	r.GET("/callback", controllers.HandleCallback)
-	r.GET("/search/:isrc", controllers.HandleSearchByISRC)
-	// r.GET("/search/artist/:name", handleSearchByArtistName)
+	router.LoadHTMLGlob("templates/*")
+	router.GET("/", handlers.HandleWelcome)
+	router.GET("/login", handlers.HandleLogin)
+	router.GET("/callback", handlers.HandleCallback)
+	router.GET("/search/:isrc", handlers.HandleSearchByISRC)
+	router.GET("/search/artist/:name", handlers.HandleSearchByArtist)
 
 	fmt.Println("Server is listening on :8080...")
-	r.Run(":8080")
+	router.Run(":8080")
 }
