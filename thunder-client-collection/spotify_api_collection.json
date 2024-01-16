@@ -1,0 +1,126 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Spotify API",
+    "dateExported": "2024-01-16T04:20:38.294Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "c90ee18d-b40c-4ef3-a5dd-6934e384a16b",
+            "colId": "977e04bd-ed86-4498-9136-be0af5bddf25",
+            "containerId": "",
+            "name": "Get Token Spotify",
+            "url": "https://accounts.spotify.com/api/token",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-01-15T23:09:13.987Z",
+            "modified": "2024-01-15T23:09:13.987Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*",
+                    "isDisabled": true
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "grant_type",
+                        "value": "client_credentials"
+                    },
+                    {
+                        "name": "client_id",
+                        "value": "6c84853b04074e9f8c8d2739c25a337a"
+                    },
+                    {
+                        "name": "client_secret",
+                        "value": "b6480532d600467797a17b0c16c16098"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "03fb9996-c002-403c-80da-292907a060a9",
+            "colId": "977e04bd-ed86-4498-9136-be0af5bddf25",
+            "containerId": "",
+            "name": "Search Track By ISRC",
+            "url": "http://localhost:8080/search/USVT10300001",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-01-16T03:48:51.123Z",
+            "modified": "2024-01-16T03:48:51.123Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*",
+                    "isDisabled": true
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "ea62c160-e27d-4544-b27c-10365ca8ff44",
+            "colId": "977e04bd-ed86-4498-9136-be0af5bddf25",
+            "containerId": "",
+            "name": "Search Track in Spotify by ISRC",
+            "url": "https://api.spotify.com/v1/search?type=track&q=isrc:USVT10300001",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-01-16T03:49:50.001Z",
+            "modified": "2024-01-16T03:50:22.986Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*",
+                    "isDisabled": true
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/x-www-form-urlencoded",
+                    "isDisabled": true
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer BQBfBFWPILzZuJJbsAsoAN1EMVv6yrOEutH7HjbiqyUtwi0AUKawm3zqGmX6z9EhCOdoESwMuZG4JvDRNtOYnZS2FHiqI5M7E8B4IiV_5PHjf2v_UOBFINTPfWa5QxCVufiTiv2wyDFP1dX14WmLAHIEcEKUrX_Qu4PW9uNxpXuAGgqQ4euikbKT81HgAQbDGWZJIM8wxUAIQkxmBg"
+                }
+            ],
+            "params": [
+                {
+                    "name": "type",
+                    "value": "track",
+                    "isPath": false
+                },
+                {
+                    "name": "q",
+                    "value": "isrc:USVT10300001",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        }
+    ]
+}
