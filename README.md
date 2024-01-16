@@ -66,7 +66,19 @@ The server is listening on port 8080.
 ## Testing
 
 1. Obtain a Spotify token by clicking "Login with Spotify" at [http://localhost:8080](http://localhost:8080).
+![Captura de pantalla 2024-01-16 032728](https://github.com/samuelzyx/spotify-api/assets/12131059/b963cb93-ad29-45ef-b481-0c2c7c4e52f8)
+
 2. Use the provided Thunder collection (`/thunder-client-collection`) to interact with the defined endpoints.
+![Captura de pantalla 2024-01-16 032910](https://github.com/samuelzyx/spotify-api/assets/12131059/455bed11-0bd5-43ab-905e-474c4cd094b0)
+
 3. Check the Swagger documentation at [http://localhost:8080/swagger/index.html#/](http://localhost:8080/swagger/index.html#/).
+![Captura de pantalla 2024-01-16 032820](https://github.com/samuelzyx/spotify-api/assets/12131059/626efb85-5d24-4573-9e0d-1d032e8825de)
+
+4. Install Workbench to login to MySql Database Viewer
+Artist table
+![Captura de pantalla 2024-01-16 032747](https://github.com/samuelzyx/spotify-api/assets/12131059/28b15de9-7db4-4cde-a07b-87a872e0f823)
+Tracks table
+![Captura de pantalla 2024-01-16 032757](https://github.com/samuelzyx/spotify-api/assets/12131059/476fc590-ad41-49f8-a8b9-531d25547380)
+
 
 **Note:** The token is stored in memory and resets with each server restart, requiring a new login.
