@@ -1,4 +1,3 @@
-```markdown
 # Spotify API
 
 This project, developed by Ing Samuel Seda, is a code challenge from Brillio. It focuses on consuming the Spotify API, implementing OAuth 2.0 login, and performing searches by ISRC and artist, storing the results in a local MySQL database or interacting with the Spotify API.
@@ -71,6 +70,3 @@ The server is listening on port 8080.
 3. Check the Swagger documentation at [http://localhost:8080/swagger/index.html#/](http://localhost:8080/swagger/index.html#/).
 
 **Note:** The token is stored in memory and resets with each server restart, requiring a new login.
-
-Feel free to customize or improve this template based on your project's needs.
-```
